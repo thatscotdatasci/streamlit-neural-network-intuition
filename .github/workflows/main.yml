@@ -7,26 +7,26 @@ on:
 
 
 jobs:
-  Tests:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout the source code
-      uses: actions/checkout@v1
-    - name: Setup Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: '3.7'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run unit tests
-      run: |
-        pip install pytest
-        pytest tests
+#  Tests:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout the source code
+#      uses: actions/checkout@v1
+#    - name: Setup Python
+#      uses: actions/setup-python@v1
+#      with:
+#        python-version: '3.7'
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install -r requirements.txt
+#    - name: Run unit tests
+#      run: |
+#        pip install pytest
+#        pytest tests
 
   Deploy:
-    needs: Tests
+#    needs: Tests
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the source code
