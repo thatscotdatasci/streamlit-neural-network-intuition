@@ -7,7 +7,21 @@ import streamlit as st
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
-r"""
+
+def latex_matrix(array: np.array, variable: str = None):
+    latex_matrix_list = [
+        r"\begin{pmatrix}",
+        r" \\ ".join([" & ".join([str(val) for val in row]) for row in array]),
+        r"\end{pmatrix}"
+    ]
+
+    if variable:
+        latex_matrix_list.insert(0, f"{variable} =")
+
+    return "".join(latex_matrix_list)
+
+
+"""
 # TSDS Neural Network Intuition
 
 Some intuitions about neural networks - based on notes from Andrew Ng's
@@ -54,3 +68,31 @@ The **activation** values in the $l^{th}$ layer are given by:
 """
 
 st.latex(r"a^{(l)} = g(\theta^{(l-1)}a^{(l-1)})")
+
+r"""
+### Example
+
+Use the select box below to choose values of $x_1$ and $x_2$.
+"""
+
+input_options = {
+    "x_1 = 0, x_2 = 0": np.array([[0, 0]]),
+    "x_1 = 1, x_2 = 0": np.array([[1, 0]]),
+    "x_1 = 0, x_2 = 1": np.array([[0, 1]]),
+    "x_1 = 1, x_2 = 1": np.array([[1, 1]]),
+}
+x = np.hstack([[[1]], input_options[st.selectbox("Input values", list(input_options.keys()))]])
+
+r"""
+Adding the bias term at $x_0$:
+"""
+
+st.latex(latex_matrix(x, variable="x"))
+
+"""
+Reminder that the following values are being used:
+"""
+
+theta_1 = np.array([[-30, 20, 20], [10, -20, -20]])
+
+st.latex(latex_matrix(theta_1, variable=r"\theta^{(1)}"))
