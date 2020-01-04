@@ -1,0 +1,1 @@
+web: sh setup.sh && PYTHONPATH=$PYTHONPATH:app/ streamlit run app/TSDSNeuralNetworkIntuition.py --server.port $PORT
