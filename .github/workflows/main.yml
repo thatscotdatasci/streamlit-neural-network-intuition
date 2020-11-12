@@ -28,27 +28,18 @@ jobs:
   Deploy:
 #    needs: Tests
     runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_APP: tsds-streamlit-example
     steps:
     - name: Checkout the source code
       uses: actions/checkout@v1
     - name: Login to Heroku
-      id: login
-      uses: actions/heroku@master
-      with:
-        args: "container:login"
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        heroku container:login
     - name: Push to Heroku
-      uses: actions/heroku@master
-      with:
-        args: "container:push web -a \"$HEROKU_APP\""
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        HEROKU_APP: tsds-streamlit-nn-intuition
+      run: |
+        heroku container:push web -a "$HEROKU_APP"
     - name: Release to Heroku
-      uses: actions/heroku@master
-      with:
-        args: "container:release web -a \"$HEROKU_APP\""
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        HEROKU_APP: tsds-streamlit-nn-intuition
+      run: |
+        heroku container:release web -a "$HEROKU_APP"
