@@ -1,3 +1,7 @@
+import requests
+from PIL import Image
+from io import BytesIO
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -20,6 +24,21 @@ def latex_matrix(array: np.array, variable: str = None):
 
     return "".join(latex_matrix_list)
 
+
+TSDS_ICON_URL = "https://raw.githubusercontent.com/thatscotdatasci/thatscotdatasci.github.io/master/assets/icons/tsds.ico"
+
+# Get the TSDS icon
+tsds_icon_data = requests.get(TSDS_ICON_URL)
+tsds_icon = Image.open(BytesIO(tsds_icon_data.content))
+
+# Set the page configuration
+st.set_page_config(
+    page_title="Neural Network Intuition",
+    page_icon=tsds_icon,
+    layout="centered"
+)
+
+st.image(tsds_icon)
 
 """
 # TSDS Neural Network Intuition
